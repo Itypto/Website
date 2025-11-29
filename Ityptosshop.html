@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Itypto's Gaming Website & Shop</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-dark': '#1e293b',
+                        'secondary-dark': '#0f172a',
+                        'accent': '#3b82f6',
+                        'accent-hover': '#2563eb',
+                        'text-light': '#f1f5f9',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a;
+            color: #f1f5f9;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-thumb { background-color: #3b82f6; border-radius: 10px; }
+        ::-webkit-scrollbar-track { background-color: #1e293b; }
+    </style>
+</head>
+<body class="p-4 sm:p-8">
+
+    <div id="app" class="w-full max-w-7xl bg-primary-dark shadow-2xl rounded-xl p-6 sm:p-10 border border-slate-700">
+
+        <nav class="flex justify-between items-center pb-6 border-b border-slate-700 mb-8">
+            <h1 class="text-3xl sm:text-4xl font-extrabold text-accent tracking-tighter">Itypto's Gaming Hub</h1>
+            <div class="space-x-4">
+                <button onclick="showPage('home')" id="nav-home" class="text-lg font-medium hover:text-accent transition duration-200">Home</button>
+                <button onclick="showPage('shop')" id="nav-shop" class="text-lg font-medium hover:text-accent transition duration-200">Shop</button>
+            </div>
+        </nav>
+
+        <div id="home-page" class="page">
+            <header class="text-center py-12">
+                <h2 class="text-4xl sm:text-6xl font-black mb-4 text-text-light">Itypto's very good website</h2>
+                <p class="text-xl text-slate-400 max-w-3xl mx-auto">check out the shop if you want.</p>
+            </header>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-10">
+                <div class="p-8 bg-secondary-dark rounded-xl shadow-lg border border-slate-700 hover:border-accent transition duration-300">
+                    <h3 class="text-3xl font-bold mb-4 text-accent">About Me</h3>
+                    <p class="text-slate-400 mb-6">I'll be filling this section with my story, streaming schedule, and details about my journey soon!</p>
+                    <a href="#" class="inline-block bg-accent px-6 py-3 rounded-lg font-semibold text-white shadow-md hover:bg-accent-hover transition duration-200">
+                        Read My Story (Coming Soon)
+                    </a>
+                </div>
+
+                <div class="p-8 bg-secondary-dark rounded-xl shadow-lg border border-slate-700 hover:border-accent transition duration-300">
+                    <h3 class="text-3xl font-bold mb-4 text-accent">Tech I am Selling</h3>
+                    <p class="text-slate-300 mb-6">Need a hardware upgrade? Check out the pre-loved PC components and gaming peripherals I'm currently selling directly on the Shop page.</p>
+                    <button onclick="showPage('shop')" class="w-full bg-slate-600 px-6 py-3 rounded-lg font-semibold text-white shadow-md hover:bg-slate-500 transition duration-200">
+                        View Available Tech
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="shop-page" class="page hidden">
+            <h2 class="text-4xl font-bold mb-8 border-b border-slate-700 pb-4 text-text-light">Itypto Shop</h2>
+            <p class="text-xl text-slate-400 mb-8">Click on any item below to be redirected to the purchase link (e.g., eBay, Amazon, etc.)</p>
+
+            <div id="shop-items-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const shopItems = [
+            {
+                name: "Itypto's Custom Gaming Mousepad",
+                description: "Limited Edition XL mousepad with a custom abstract design. Low friction surface, non-slip base.",
+                image: "https://placehold.co/600x400/1e293b/f1f5f9?text=Custom+Mousepad",
+                link: "https://www.ebay.com/itm/YOUR-EBAY-LINK-1",
+                id: 1
+            },
+            {
+                name: "Itypto's Stream Sticker Pack",
+                description: "A set of 5 high-quality vinyl stickers featuring my favorite emotes and logos.",
+                image: "https://placehold.co/600x400/1e293b/f1f5f9?text=Sticker+Pack",
+                link: "https://www.amazon.com/YOUR-AMAZON-LINK-2",
+                id: 2
+            },
+            {
+                name: "Mechanical Keyboard (Used)",
+                description: "My previous custom mechanical keyboard (Blue switches). Great condition, cleaned and ready to go.",
+                image: "https://placehold.co/600x400/1e293b/f1f5f9?text=Used+Keyboard",
+                link: "https://www.etsy.com/YOUR-ETSY-LINK-3",
+                id: 3
+            },
+            {
+                name: "Itypto Logo Hoodie (Black)",
+                description: "Comfortable, premium black hoodie with the official Itypto logo embroidered on the chest.",
+                image: "https://placehold.co/600x400/1e293b/f1f5f9?text=Logo+Hoodie",
+                link: "https://www.merchsite.com/YOUR-MERCH-LINK-4",
+                id: 4
+            }
+        ];
+
+        function createShopItem(item) {
+            const card = document.createElement('div');
+            card.className = "bg-secondary-dark rounded-xl overflow-hidden shadow-xl hover:shadow-2xl transition duration-300 transform hover:-translate-y-1 border border-slate-700 cursor-pointer";
+
+            card.onclick = () => {
+                window.open(item.link, '_blank');
+            };
+
+            card.innerHTML = `
+                <div class="relative h-48 bg-gray-900 overflow-hidden">
+                    <img src="${item.image}" alt="${item.name}" 
+                         class="w-full h-full object-cover transition-opacity duration-500 hover:opacity-75"
+                         onerror="this.onerror=null; this.src='https://placehold.co/600x400/1e293b/f1f5f9?text=Image+Not+Found'"
+                    >
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-2 text-accent">${item.name}</h3>
+                    <p class="text-slate-400 mb-4 text-sm">${item.description}</p>
+                    <button class="w-full bg-accent text-white font-semibold py-2 px-4 rounded-lg hover:bg-accent-hover transition duration-200">
+                        View & Buy Now
+                    </button>
+                </div>
+            `;
+            return card;
+        }
+
+        function renderShopItems() {
+            const container = document.getElementById('shop-items-container');
+            container.innerHTML = '';
+            shopItems.forEach(item => {
+                container.appendChild(createShopItem(item));
+            });
+        }
+
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.add('hidden');
+            });
+
+            const pageToShow = document.getElementById(`${pageId}-page`);
+            if (pageToShow) {
+                pageToShow.classList.remove('hidden');
+            }
+
+            if (pageId === 'shop') {
+                renderShopItems();
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            showPage('home');
+        });
+
+    </script>
+</body>
+</html>
